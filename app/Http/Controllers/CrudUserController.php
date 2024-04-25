@@ -192,31 +192,5 @@ class CrudUserController extends Controller
     return redirect("list")->withSuccess('You have signed-in');
     }
     
-    public function store(Request $request)
-    {
-        // Định nghĩa các rules cho việc validation
-        $rules = [
-            'phone' => 'required|regex:/^[0-9]{10}$/'
-        ];
-
-        // Định nghĩa các thông báo lỗi cho các rule
-        $messages = [
-            'phone.required' => 'Số điện thoại là bắt buộc.',
-            'phone.regex' => 'Số điện thoại không hợp lệ.'
-        ];
-
-        // Kiểm tra validation
-        $validator = Validator::make($request->all(), $rules, $messages);
-
-        // Nếu validation không thành công
-        if ($validator->fails()) {
-            return redirect('form')
-                        ->withErrors($validator)
-                        ->withInput();
-        }
-
-        // Nếu validation thành công, xử lý dữ liệu tiếp theo ở đây
-
-        return "Số điện thoại hợp lệ: " . $request->phone;
-    }
+    
 } 
