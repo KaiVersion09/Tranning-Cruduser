@@ -68,19 +68,19 @@ class CrudUserController extends Controller
             'avatar.mimes' => 'Ảnh tải lên phải có định dạng jpeg, png, jpg hoặc gif.',
             'avatar.max' => 'Kích thước của ảnh không được vượt quá 2MB.',
         ]);
-    
+
         $data = $request->all();
-    
+
         // Handle avatar upload
         if ($request->hasFile('avatar')) {
             $avatar = $request->file('avatar');
-            $avatarName = time().'.'.$avatar->getClientOriginalExtension();
+            $avatarName = time() . '.' . $avatar->getClientOriginalExtension();
             $avatar->move(public_path('avatars'), $avatarName);
-            $avatarPath = 'avatars/'.$avatarName;
+            $avatarPath = 'avatars/' . $avatarName;
         } else {
             $avatarPath = null; // Set default avatar path if no avatar is uploaded
         }
-    
+
         $check = User::create([
             'name' => $data['name'],
             'email' => $data['email'],
@@ -88,10 +88,10 @@ class CrudUserController extends Controller
             'phone' => $data['phone'],
             'avatar' => $avatarPath, // Save avatar path to the database
         ]);
-    
+
         return redirect("login");
     }
-    
+
     /**
      * List of users
      */
@@ -105,7 +105,7 @@ class CrudUserController extends Controller
 
         return redirect("login")->withSuccess('You are not allowed to access');
     }
-    
+
 
     /**
      * Delete user by id
@@ -126,8 +126,8 @@ class CrudUserController extends Controller
         Session::flush();
         Auth::logout();
         return Redirect('login');
-    }    
-      /**
+    }
+    /**
      * View user detail page
      */
     public function readUser(Request $request)
@@ -136,7 +136,7 @@ class CrudUserController extends Controller
         $user = User::find($user_id);
 
         return view('crud_user.read', ['user' => $user]);
-    } 
+    }
     /**
      * Form update user page
      */
@@ -153,9 +153,9 @@ class CrudUserController extends Controller
      */
     public function postUpdateUser(Request $request)
     {
-         $input = $request->all();
+        $input = $request->all();
 
-         $request->validate([
+        $request->validate([
             'name' => 'required',
             'email' => 'required|email|unique:users,email,' . $input['id'],
             'password' => 'nullable|min:6', // Bạn có thể cho phép mật khẩu là null nếu không muốn bắt buộc cập nhật
@@ -169,28 +169,26 @@ class CrudUserController extends Controller
             'avatar.mimes' => 'Ảnh tải lên phải có định dạng jpeg, png, jpg hoặc gif.',
             'avatar.max' => 'Kích thước của ảnh không được vượt quá 2MB.',
         ]);
-    $user = User::find($input['id']);
-    $user->name = $input['name'];
-    $user->email = $input['email'];
-    $user->phone = $input['phone']; // Cập nhật số điện thoại
+        $user = User::find($input['id']);
+        $user->name = $input['name'];
+        $user->email = $input['email'];
+        $user->phone = $input['phone']; // Cập nhật số điện thoại
 
-    if (!empty($input['password'])) {
-        $user->password = Hash::make($input['password']);
+        if (!empty($input['password'])) {
+            $user->password = Hash::make($input['password']);
+        }
+
+        // Xử lý cập nhật avatar nếu có
+        if ($request->hasFile('avatar')) {
+            $avatar = $request->file('avatar');
+            $avatarName = time() . '.' . $avatar->getClientOriginalExtension();
+            $avatar->move(public_path('avatars'), $avatarName);
+            $avatarPath = 'avatars/' . $avatarName;
+            $user->avatar = $avatarPath; // Cập nhật đường dẫn avatar mới
+        }
+
+        $user->save();
+
+        return redirect("list")->withSuccess('You have signed-in');
     }
-
-    // Xử lý cập nhật avatar nếu có
-    if ($request->hasFile('avatar')) {
-        $avatar = $request->file('avatar');
-        $avatarName = time().'.'.$avatar->getClientOriginalExtension();
-        $avatar->move(public_path('avatars'), $avatarName);
-        $avatarPath = 'avatars/'.$avatarName;
-        $user->avatar = $avatarPath; // Cập nhật đường dẫn avatar mới
-    }
-
-    $user->save();
-
-    return redirect("list")->withSuccess('You have signed-in');
-    }
-    
-    
-} 
+}
