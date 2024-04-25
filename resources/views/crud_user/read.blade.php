@@ -33,6 +33,12 @@
                             </div>
                         </div>
                         <div class="mb-3 row">
+                            <label for="favorities" class="col-sm-4 col-form-label">Favorities:</label>
+                            <div class="col-sm-8">
+                                <p id="favorities">{{ $user->favorities }}</p>
+                            </div>
+                        </div>
+                        <div class="mb-3 row">
                             <div class="col-sm-4"></div>
                             <div class="col-sm-8 text-end">
                                 <a href="{{ route('user.updateUser', ['id' => $user->id]) }}" class="btn btn-primary">Edit</a> |

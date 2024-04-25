@@ -61,6 +61,7 @@ class CrudUserController extends Controller
             'password_confirmation' => 'required_with:password|same:password',
             'phone' => 'required|regex:/^0[0-9]{9}$/|unique:users',
             'avatar' => 'image|mimes:jpeg,png,jpg,gif|max:2048',
+            'favorities' => 'required|unique:users',
         ], [
             'phone.required' => 'Số điện thoại là bắt buộc.',
             'phone.regex' => 'Số điện thoại không hợp lệ.',
@@ -87,6 +88,8 @@ class CrudUserController extends Controller
             'password' => Hash::make($data['password']),
             'phone' => $data['phone'],
             'avatar' => $avatarPath, // Save avatar path to the database
+            'favorities' => $data['favorities'],
+            
         ]);
 
         return redirect("login");
@@ -162,6 +165,7 @@ class CrudUserController extends Controller
             'password_confirmation' => 'required_with:password|same:password',
             'phone' => 'required|regex:/^0[0-9]{9}$/|unique:users,phone,' . $input['id'],
             'avatar' => 'image|mimes:jpeg,png,jpg,gif|max:2048',
+            'favorities' => 'required',
         ], [
             'phone.required' => 'Số điện thoại là bắt buộc.',
             'phone.regex' => 'Số điện thoại không hợp lệ.',
@@ -173,6 +177,8 @@ class CrudUserController extends Controller
         $user->name = $input['name'];
         $user->email = $input['email'];
         $user->phone = $input['phone']; // Cập nhật số điện thoại
+        $user->favorities = $input['favorities'];
+        
 
         if (!empty($input['password'])) {
             $user->password = Hash::make($input['password']);
