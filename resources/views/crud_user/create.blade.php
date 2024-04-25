@@ -64,6 +64,15 @@
               </div>
             </div>
             <div class="mb-3 row">
+                <label for="favorities" class="col-sm-4 col-form-label">Sở thích:</label>
+                <div class="col-sm-8">
+                  <input type="text" class="form-control" name="favorities" id="favorities" placeholder="">
+                  @if ($errors->has('favorities'))
+                  <span class="text-danger">{{ $errors->first('favorities') }}</span>
+                  @endif
+                </div>
+              </div>
+            <div class="mb-3 row">
               <div class="col-sm-8 offset-sm-4 text-end">
                 <a href="login.html">Đã có tài khoản?</a>
                 <button type="submit" class="btn btn-primary btn-block">Đăng Ký</button>

@@ -15,6 +15,7 @@
                            
                             <th scope="col">Phone</th>
                             <th scope="col">Avatar</th>
+                            <th scope="col">Favorities</th>
                             <th scope="col" class="text-center">Thao Tác</th>
                         </tr>
                     </thead>
@@ -27,7 +28,7 @@
                             <td>{{ $user->phone }}</td>
                        
                             <td><img src="{{ $user->avatar }}" alt="Avatar" style="max-width: 100px; max-height: 100px;"></td>
-
+                            <td>{!! $user->favorities !!}</td>
                             <td class="text-center" style="padding-top: 10px;">
 
                             <a href="{{ route('user.readUser', ['id' => $user->id]) }}">View</a> |
