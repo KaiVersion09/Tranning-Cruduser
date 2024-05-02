@@ -11,7 +11,7 @@
 <body>
     <nav class="navbar navbar-expand-lg navbar-light bg-light">
         <div class="container justify-content-center">
-            <a class="navbar-brand" href="#">Home</a>
+            <a class="navbar-brand" href="{{ route('user.list') }}">Home</a>
             <ul class="navbar-nav">
                 @guest
                 <li class="nav-item">
@@ -21,6 +21,13 @@
                     <a class="nav-link" href="{{ route('user.createUser') }}">Đăng Ký</a>
                 </li>
                 @else
+               
+                <li class="nav-item">
+                    <a class="nav-link" href="{{ route('favorites.favorites') }}">Danh Sách Sở Thích</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="{{ route('post.post') }}">Danh Sách Bài Viết</a>
+                </li>
                 <li class="nav-item">
                     <a class="nav-link" href="{{ route('signout') }}">Đăng Xuất</a>
                 </li>
