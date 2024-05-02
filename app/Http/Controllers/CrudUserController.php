@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Favorities;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Session;
 use App\Models\User;
@@ -197,4 +198,19 @@ class CrudUserController extends Controller
 
         return redirect("list")->withSuccess('You have signed-in');
     }
+    public function favorites()
+    {
+        if (Auth::check()) {
+            $favorites = Favorities::all();
+            return view('crud_user.favorites', ['favorites' => $favorites]);
+        }
+       
+    }
+    public function post()
+    {
+        
+       
+        return view('crud_user.postlist');
+    }
+    
 }
