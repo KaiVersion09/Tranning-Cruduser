@@ -61,7 +61,7 @@ class CrudUserController extends Controller
             'password_confirmation' => 'required_with:password|same:password',
             'phone' => 'required|regex:/^0[0-9]{9}$/|unique:users',
             'avatar' => 'image|mimes:jpeg,png,jpg,gif|max:2048',
-            'favorities' => 'required|unique:users',
+            'favorities' => 'required',
         ], [
             'phone.required' => 'Số điện thoại là bắt buộc.',
             'phone.regex' => 'Số điện thoại không hợp lệ.',
