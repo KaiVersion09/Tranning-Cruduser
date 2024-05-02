@@ -53,8 +53,8 @@
                 <span class="text-danger">{{ $errors->first('avatar') }}</span>
                 @endif
               </div>
-            </div>
-            
+            </div>  
+                   
             <div class="mb-3 row">
               <div class="col-sm-8 offset-sm-4 text-end">
                 <a href="login.html">Đã có tài khoản?</a>
